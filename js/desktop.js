@@ -567,7 +567,7 @@ let apps = {
                 apps.explorer.delHistory(apps.explorer.tabs[apps.explorer.now][0]);
                 apps.explorer.pushHistory(apps.explorer.tabs[apps.explorer.now][0], i18next.t('computer'));
             }
-            let disk_group = '<a class="a item act" ondblclick="" oncontextmenu=""><img src="img/explorer/diskwin.svg" alt=""><div><p class="name">' + i18next.t('explore.window.file.disk.name') + ' (C:)</p><div class="bar"><div class="content" style="width: 1%;"></div></div><p class="info">520 MB' + i18next.t('explore.window.file.disk.size') + '521 MB</p></div></a>';
+            let disk_group = '<a class="a item act" ondblclick="" oncontextmenu=""><img src="img/explorer/diskwin.svg" alt=""><div><p class="name">' + i18next.t('explore.window.file.disk.name') + ' (C:)</p><div class="bar"><div class="content" style="width: 1%;"></div></div><p class="info">520 MB' + i18next.t('explore.window.file.disk.size') + '521 MB</p></div></a><a class="a item act" ondblclick="apps.explorer.goto(\'D:\'' + ',\'D\')" ontouchend="apps.explorer.goto(\'D:\'' + ',\'D\')" oncontextmenu="showcm(event,\'explorer.folder\',\'D:\');return stop(event);"><img src="img/explorer/disk.svg"><div><p class="name">' + i18next.t('explore.window.file.disk.name') + ' (D:)</p><div class="bar"><div class="content" style="width: 20%;"></div></div><p class="info">520GB' + i18next.t('explore.window.file.disk.size') + '1.5TB</p></div></a>';
             document.getElementsByClassName('group')[0].innerHTML = disk_group;
             $.get(server + '/folder/getDisk').then(res => {
                 res.data.forEach(c => {
@@ -871,17 +871,37 @@ let apps = {
             document.querySelectorAll('#win-explorer>.page>.main>.tool>.dsa').forEach(item => {
                 item.style.display='none';
             })
+            let demo = [
+                {
+                  "id": "17164726179150",
+                  "name": "新建文件夹",
+                  "folder_type": "folder",
+                  "format": "",
+                  "size": 0,
+                  "create_time": "2024-05-23 21:56:57",
+                  "update_time": "2024-05-23 21:56:57"
+                },
+                {
+                  "id": "17174607694213",
+                  "name": "新建文本文件.txt",
+                  "folder_type": "file",
+                  "format": "txt",
+                  "size": "2.26 KB",
+                  "create_time": "2024-06-04 08:26:09",
+                  "update_time": "2024-08-15 06:31:33"
+                }
+              ];
             if (path_id === 'C') {
                 m_tab.rename('explorer', '<img src="img/explorer/diskwin.svg" style="margin-top:2.5px" alt="">' + pathl[pathl.length - 1]);
                 return;
             }
             else if (pathlid[pathlid.length - 1].length === 1) {
                 m_tab.rename('explorer', '<img src="img/explorer/disk.svg" alt="">' + pathl[pathl.length - 1]);
-                tmp = queryAllFiles(pathlid[pathlid.length - 1], "", sort_field, sort_type);
+                tmp = demo; // queryAllFiles(pathlid[pathlid.length - 1], "", sort_field, sort_type);
             }
             else {
                 m_tab.rename('explorer', '<img src="img/explorer/folder.svg" alt="">' + pathl[pathl.length - 1]);
-                tmp = queryAllFiles(pathlid[pathlid.length - 1], "", sort_field, sort_type);
+                tmp = demo; //queryAllFiles(pathlid[pathlid.length - 1], "", sort_field, sort_type);
             }
             apps.explorer.tabs[apps.explorer.now][2] = path;
             apps.explorer.tabs[apps.explorer.now][3] = path_id;
